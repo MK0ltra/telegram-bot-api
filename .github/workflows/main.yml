@@ -30,7 +30,7 @@ jobs:
 
       - name: Generate tag based on current date/time
         id: tag
-        run: echo "TAG=v$(date +'%Y-%m-%d_%H:%M:%S')" >> $GITHUB_ENV
+        run: echo "TAG=v$(date +'%Y-%m-%d-%H%M%S')" >> $GITHUB_ENV
 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
