@@ -27,9 +27,16 @@ jobs:
           ls -l /home/runner/work/telegram-bot-api/telegram-bot-api/bin/telegram-bot-api*
           tar czf /home/runner/work/telegram-bot-api/telegram-bot-api/bin/telegram-bot-api.tar.gz /home/runner/work/telegram-bot-api/telegram-bot-api/bin/telegram-bot-api
           sha256sum /home/runner/work/telegram-bot-api/telegram-bot-api/bin/telegram-bot-api.tar.gz > /home/runner/work/telegram-bot-api/telegram-bot-api/bin/telegram-bot-api.tar.gz.sha256
+
+      - name: Generate tag based on current date/time
+        id: tag
+        run: echo "TAG=v$(date +'%Y-%m-%d_%H:%M:%S')" >> $GITHUB_ENV
+
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tag_name: ${{ env.TAG }}
+          release_name: "Release ${{ env.TAG }}"
           files: /home/runner/work/telegram-bot-api/telegram-bot-api/bin/telegram-bot-api.tar.gz
